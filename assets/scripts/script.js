@@ -23,6 +23,12 @@ function getWeather(cityName) {
             fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly&units=metric&appid=922375a928fdc33c6466997d7ac7b917")
                 .then(function(response) {
                     response.json().then(function(data) {
+                        // Give user an answer
+                        if (data.current.weather[0].id < 800) {
+                            $("#answer").text("Hell no.");
+                        } else {
+                            $("#answer").text("Yup.");
+                        }
                         // Populate current weather data
                         $("#current-icon").html("<img src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png'>");
                         $("#current-temp").text("Temperature: " + data.current.temp + " °C");
@@ -73,7 +79,8 @@ $("#form-submit").click(function(event) {
     var userSearch = $("#user-input").val();
     $("#user-input").val("");
     getWeather(userSearch);
+    $("#weather-details").removeClass("is-hidden");
+    $("#answer").removeClass("is-hidden");
 });
 
 loadSearches();
-getWeather("Salt Lake City");
