@@ -5,6 +5,7 @@ var DateTime = luxon.DateTime;
 var today = DateTime.now();
 var savedSearches = [];
 
+// BEGIN Functions
 // Get and display weather
 function getWeather(cityName) {
     // Get coordinates using searched-for city
@@ -58,6 +59,7 @@ function getWeather(cityName) {
             $("#error-modal").addClass("is-active");
         });
 };
+// END Functions
 
 // Save searches to local storage
 function saveSearch(city) {
@@ -77,9 +79,9 @@ function loadSearches() {
     if (savedSearches.length == 0) {
         return;
     } else {
-        $("#recent-searches").empty();
         for (let i = 0; i < savedSearches.length; i++) {
-            $("#recent-searches").append("<button class='button is-danger is-light is-flex m-2'>" + savedSearches[i] + "</button>");
+            $("#recent-search-" + i).text(savedSearches[i]);
+            $("#recent-search-" + i).removeClass("is-hidden");
         };
     };
 }
@@ -95,14 +97,22 @@ $("#form-submit").click(function(event) {
     $("#answer").removeClass("is-hidden");
 });
 
+// User clicks a recent search
+$($("#recent-searches")).on("click", ".recent-search-button", (function() {
+    getWeather(($(this).text()));
+}));
+
 // User clicks outside of modal
 $(".modal-background").click(function() {
     $("#error-modal").removeClass("is-active");
-})
+});
+
 // User clicks modal close button
 $(".modal-close").click(function() {
     $("#error-modal").removeClass("is-active");
-})
+});
+// END Listeners
+
 // getWeather("Salt Lake City");
 $("#weather-details").removeClass("is-hidden");
 loadSearches();
