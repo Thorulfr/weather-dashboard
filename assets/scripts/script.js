@@ -34,7 +34,15 @@ function getWeather(cityName) {
                         $("#current-temp").text("Temperature: " + data.current.temp + " °C");
                         $("#current-wind").text("Wind Speed: " + data.current.wind_speed + "m/s");
                         $("#current-humidity").text("Humidity: " + data.current.humidity + "%");
-                        $("#current-uv").text("UV Index: " + data.current.uvi);
+                        $("#current-uv").text(data.current.uvi);
+                        // Color-code UV Index
+                        if (data.current.uvi < 2) {
+                            $("#current-uv").addClass("is-primary");
+                        } else if (data.current.uvi < 7) {
+                            $("#current-uv").addClass("is-warning");
+                        } else {
+                            $("#current-uv").addClass("is-danger");
+                        };
                         // Populate future weather data
                         for (let i = 1; i < 6; i++) {                            
                             $("#date-" + i).text(today.plus({days: i}).toLocaleString(DateTime.DATE_HUGE));
@@ -83,4 +91,6 @@ $("#form-submit").click(function(event) {
     $("#answer").removeClass("is-hidden");
 });
 
+getWeather("Salt Lake City");
+$("#weather-details").removeClass("is-hidden");
 loadSearches();

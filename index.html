@@ -17,6 +17,7 @@
             <h1 class="is-size-1">Should I go outside?</h1>
         </div>
     </div>
+
     <!-- Search Form -->
     <form class="field has-addons mb-5" id="search-form">
         <div class="control is-expanded">
@@ -26,8 +27,10 @@
             <button class="button is-primary is-medium" id="form-submit" type="submit">Search</button>
         </div>
     </form>
+
     <!-- Answer -->
     <p class="has-text-centered is-size-1 pb-5 is-hidden" id="answer"></p>
+
     <!-- Weather Details -->
     <section class="box is-hidden" id="weather-details">
         <!-- Current Weather -->
@@ -41,7 +44,7 @@
                 <span class="column is-half" id="current-temp"></span>
                 <span class="column is-half" id="current-wind"></span>
                 <span class="column is-half" id="current-humidity"></span>
-                <span class="column is-half" id="current-uv"></span>
+                <span class="column is-half">UV Index: <span class="tag is-medium is-light" id="current-uv"></span></span>
             </div>
         </div>
         <!-- Five-Day Forecast -->
@@ -90,6 +93,16 @@
         <div class="p-5 is-flex is-flex-wrap-wrap is-justify-content-space-around" id="recent-searches">
         </div>
     </section>
+
+    <!-- Error Modal -->
+    <div class="modal" id="error-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <p class="title">We couldn't find your city!</p>
+        </div>
+        <button class="modal-close is-large"></button>
+      </div>
+
     <!-- JS Links -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
