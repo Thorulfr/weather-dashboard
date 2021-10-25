@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body class="container is-max-desktop">
+    <!-- Header/Title Row -->
+    <div class="columns is-centered is-vcentered mt-5 has-text-centered">
+        <div class="column">
+            <h1 class="is-size-1">Should I go outside?</h1>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <form class="field has-addons mb-5" id="search-form">
+        <div class="control is-expanded">
+            <input class="input is-primary is-medium" id="user-input" type="text" placeholder="Name yer town.">
+        </div>
+        <div class="control">
+            <button class="button is-primary is-medium" id="form-submit" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- Answer -->
+    <p class="has-text-centered is-size-1 pb-5 is-hidden" id="answer"></p>
+
+    <!-- Weather Details -->
+    <section class="box is-hidden" id="weather-details">
+        <!-- Current Weather -->
+        <div class="columns is-centered m-5">
+            <div class="column is-4 has-text-centered">
+                <p class="title" id="city-name"></p>
+                <p class="subtitle" id="date"></p>
+                <span id="current-icon"></span>
+            </div>
+            <div class="column is-8 columns is-multiline m-5 has-text-centered">
+                <span class="column is-half" id="current-temp"></span>
+                <span class="column is-half" id="current-wind"></span>
+                <span class="column is-half" id="current-humidity"></span>
+                <span class="column is-half">UV Index: <span class="tag is-medium is-light" id="current-uv"></span></span>
+            </div>
+        </div>
+        <!-- Five-Day Forecast -->
+        <div class="message is-primary">
+            <p class="message-header is-size-4">Five-Day Forecast</p>
+            <div class="message-body">
+                <div class="columns has-text-centered">
+                    <div class="column is-4 is-size-6" id="date-1"></div>
+                    <div class="column is-1 is-size-6" id="icon-1"></div>
+                    <div class="column is-2 is-size-6" id="temp-1"></div>
+                    <div class="column is-2 is-size-6" id="wind-1"></div>
+                    <div class="column is-2 is-size-6" id="humi-1"></div>
+                </div>
+                <div class="columns has-text-centered">
+                    <div class="column is-4 is-size-6" id="date-2"></div>
+                    <div class="column is-1 is-size-6" id="icon-2"></div>
+                    <div class="column is-2 is-size-6" id="temp-2"></div>
+                    <div class="column is-2 is-size-6" id="wind-2"></div>
+                    <div class="column is-2 is-size-6" id="humi-2"></div>
+                </div>
+                <div class="columns has-text-centered">
+                    <div class="column is-4 is-size-6" id="date-3"></div>
+                    <div class="column is-1 is-size-6" id="icon-3"></div>
+                    <div class="column is-2 is-size-6" id="temp-3"></div>
+                    <div class="column is-2 is-size-6" id="wind-3"></div>
+                    <div class="column is-2 is-size-6" id="humi-3"></div>
+                </div>
+                <div class="columns has-text-centered">
+                    <div class="column is-4 is-size-6" id="date-4"></div>
+                    <div class="column is-1 is-size-6" id="icon-4"></div>
+                    <div class="column is-2 is-size-6" id="temp-4"></div>
+                    <div class="column is-2 is-size-6" id="wind-4"></div>
+                    <div class="column is-2 is-size-6" id="humi-4"></div>
+                </div>
+                <div class="columns has-text-centered">
+                    <div class="column is-4 is-size-6" id="date-5"></div>
+                    <div class="column is-1 is-size-6" id="icon-5"></div>
+                    <div class="column is-2 is-size-6" id="temp-5"></div>
+                    <div class="column is-2 is-size-6" id="wind-5"></div>
+                    <div class="column is-2 is-size-6" id="humi-5"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Search History -->
+        <h2 class="column is-full is-size-3 has-text-centered">Recent Searches:</h2>
+        <div class="p-5 is-flex is-flex-wrap-wrap is-justify-content-space-around" id="recent-searches">
+            <button class="button is-danger is-light is-flex m-2 recent-search-button is-hidden" id="recent-search-0"></button>
+            <button class="button is-danger is-light is-flex m-2 recent-search-button is-hidden" id="recent-search-1"></button>
+            <button class="button is-danger is-light is-flex m-2 recent-search-button is-hidden" id="recent-search-2"></button>
+            <button class="button is-danger is-light is-flex m-2 recent-search-button is-hidden" id="recent-search-3"></button>
+            <button class="button is-danger is-light is-flex m-2 recent-search-button is-hidden" id="recent-search-4"></button>
+        </div>
+    </section>
+
+    <!-- Error Modal -->
+    <div class="modal" id="error-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content box">
+            <p class="title has-text-centered">We couldn't find your city!</p>
+        </div>
+        <button class="modal-close is-large"></button>
+    </div>
+
+    <!-- JS Links -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+    <script src="./assets/scripts/script.js"></script>
+</body>
+</html>
