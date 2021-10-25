@@ -25,10 +25,10 @@ function getWeather(cityName) {
                 .then(function(response) {
                     response.json().then(function(data) {
                         // Give user an answer
-                        if (data.current.weather[0].id < 800) {
-                            $("#answer").text("Hell no.");
-                        } else {
+                        if (data.current.weather[0].id > 800 && data.current.uvi < 7) {
                             $("#answer").text("Yup.");
+                        } else {
+                            $("#answer").text("Hell no.");
                         }
                         // Populate current weather data
                         $("#current-icon").html("<img src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png'>");
@@ -113,6 +113,4 @@ $(".modal-close").click(function() {
 });
 // END Listeners
 
-// getWeather("Salt Lake City");
-$("#weather-details").removeClass("is-hidden");
 loadSearches();
