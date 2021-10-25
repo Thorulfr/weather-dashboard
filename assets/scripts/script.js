@@ -9,7 +9,7 @@ var savedSearches = [];
 // Get and display weather
 function getWeather(cityName) {
     // Get coordinates using searched-for city
-    fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=922375a928fdc33c6466997d7ac7b917")
+    fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=922375a928fdc33c6466997d7ac7b917")
         .then(function(response) {
             return response.json();
         })
