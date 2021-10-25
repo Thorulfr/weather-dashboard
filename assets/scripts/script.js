@@ -16,6 +16,7 @@ function getWeather(cityName) {
             // Display city name and save to recent searches
             $("#city-name").text(data[0].name);
             saveSearch(data[0].name);
+            loadSearches();
             // Display current date
             $("#date").text(today.toLocaleString(DateTime.DATE_HUGE)); 
             // Get weather using coordinates generated above
@@ -30,11 +31,11 @@ function getWeather(cityName) {
                         $("#current-uv").text("UV Index: " + data.current.uvi);
                         // Populate future weather data
                         for (let i = 1; i < 6; i++) {                            
-                            $("#date-" + [i]).text(today.plus({days: [i]}).toLocaleString(DateTime.DATE_HUGE));
-                            $("#icon-" + [i]).html("<img src='http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png'>")
-                            $("#temp-" + [i]).text("Temp: " + data.daily[i].temp.day + " °C");
-                            $("#wind-" + [i]).text("Wind: " + data.daily[i].wind_speed + "m/s");
-                            $("#humi-" + [i]).text("Humidity: " + data.daily[i].humidity + "%");
+                            $("#date-" + i).text(today.plus({days: i}).toLocaleString(DateTime.DATE_HUGE));
+                            $("#icon-" + i).html("<img src='http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png'>")
+                            $("#temp-" + i).text("Temp: " + data.daily[i].temp.day + " °C");
+                            $("#wind-" + i).text("Wind: " + data.daily[i].wind_speed + "m/s");
+                            $("#humi-" + i).text("Humidity: " + data.daily[i].humidity + "%");
                         }
                     });
                 });
@@ -53,6 +54,17 @@ function saveSearch(city) {
 // Load searches from local storage
 function loadSearches() {
     savedSearches = JSON.parse(localStorage.getItem("searches"));
+    if (!savedSearches) {
+        savedSearches = [];
+    };
+    if (savedSearches.length == 0) {
+        return;
+    } else {
+        $("#recent-searches").empty();
+        for (let i = 0; i < savedSearches.length; i++) {
+            $("#recent-searches").append("<button class='button is-danger is-light is-flex m-2'>" + savedSearches[i] + "</button>");
+        };
+    };
 }
 
 // BEGIN Listeners
@@ -63,4 +75,5 @@ $("#form-submit").click(function(event) {
     getWeather(userSearch);
 });
 
-// getWeather("Salt Lake City");
+loadSearches();
+getWeather("Salt Lake City");
