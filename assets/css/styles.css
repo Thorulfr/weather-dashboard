@@ -17,3 +17,33 @@ input,select{vertical-align:middle}
 body {
     line-height: 1.5;
 }
+
+hr {
+    display: none;
+    height: 10px;
+    border-radius: 50px;
+    background-color: hsl(171, 100%, 86%);
+    border: none;
+}
+
+.message-body > .columns {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    hr {
+        display: block;
+        height: 10px;
+        border-radius: 50px;
+        background-color: hsl(171, 100%, 86%);
+        border: none;
+    }   
+
+    .message-body > .columns {
+        margin-top: 1rem;
+    }
+
+    .message-body > .columns:first-child {
+        margin-top: 0;
+    }
+}
