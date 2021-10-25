@@ -54,6 +54,9 @@ function getWeather(cityName) {
                     });
                 });
         })
+        .catch(function() {
+            $("#error-modal").addClass("is-active");
+        });
 };
 
 // Save searches to local storage
@@ -82,6 +85,7 @@ function loadSearches() {
 }
 
 // BEGIN Listeners
+// User submits search
 $("#form-submit").click(function(event) {
     event.preventDefault();
     var userSearch = $("#user-input").val();
@@ -91,6 +95,14 @@ $("#form-submit").click(function(event) {
     $("#answer").removeClass("is-hidden");
 });
 
-getWeather("Salt Lake City");
+// User clicks outside of modal
+$(".modal-background").click(function() {
+    $("#error-modal").removeClass("is-active");
+})
+// User clicks modal close button
+$(".modal-close").click(function() {
+    $("#error-modal").removeClass("is-active");
+})
+// getWeather("Salt Lake City");
 $("#weather-details").removeClass("is-hidden");
 loadSearches();
