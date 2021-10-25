@@ -3,6 +3,7 @@ var DateTime = luxon.DateTime;
 
 // Variable declarations
 var today = DateTime.now();
+var savedSearches = [];
 
 // Get and display weather
 function getWeather(cityName) {
@@ -12,8 +13,9 @@ function getWeather(cityName) {
             return response.json();
         })
         .then(function(data) {
-            // Display city name
+            // Display city name and save to recent searches
             $("#city-name").text(data[0].name);
+            saveSearch(data[0].name);
             // Display current date
             $("#date").text(today.toLocaleString(DateTime.DATE_HUGE)); 
             // Get weather using coordinates generated above
@@ -30,8 +32,8 @@ function getWeather(cityName) {
                         for (let i = 1; i < 6; i++) {                            
                             $("#date-" + [i]).text(today.plus({days: [i]}).toLocaleString(DateTime.DATE_HUGE));
                             $("#icon-" + [i]).html("<img src='http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png'>")
-                            $("#temp-" + [i]).text("Temperature: " + data.daily[i].temp.day + " °C");
-                            $("#wind-" + [i]).text("Wind Speed: " + data.daily[i].wind_speed + "m/s");
+                            $("#temp-" + [i]).text("Temp: " + data.daily[i].temp.day + " °C");
+                            $("#wind-" + [i]).text("Wind: " + data.daily[i].wind_speed + "m/s");
                             $("#humi-" + [i]).text("Humidity: " + data.daily[i].humidity + "%");
                         }
                     });
@@ -39,11 +41,26 @@ function getWeather(cityName) {
         })
 };
 
+// Save searches to local storage
+function saveSearch(city) {
+    savedSearches.push(city);
+    if (savedSearches.length > 5) {
+        savedSearches.shift();
+    }
+    localStorage.setItem("searches", JSON.stringify(savedSearches));
+}
+
+// Load searches from local storage
+function loadSearches() {
+    savedSearches = JSON.parse(localStorage.getItem("searches"));
+}
+
 // BEGIN Listeners
 $("#form-submit").click(function(event) {
     event.preventDefault();
     var userSearch = $("#user-input").val();
     $("#user-input").val("");
-    // getWeather("userSearch");
-    getWeather("Salt Lake City");
+    getWeather(userSearch);
 });
+
+// getWeather("Salt Lake City");
