@@ -8,11 +8,14 @@ function getWeather(cityName) {
             $("#city-name").text(data[0].name)
             const date = new Date().toDateString();
             $("#date").text(date);            
-            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly&appid=922375a928fdc33c6466997d7ac7b917")
+            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + data[0].lat + "&lon=" + data[0].lon + "&exclude=minutely,hourly&units=metric&appid=922375a928fdc33c6466997d7ac7b917")
                 .then(function(response) {
-                    console.log("Third");
                     response.json().then(function(data) {
-                        ;
+                        $("#current-icon").html("<img src='http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png'>");
+                        $("#current-temp").text("Temperature: " + data.current.temp + " °C");
+                        $("#current-wind").text("Wind Speed: " + data.current.wind_speed + "m/s");
+                        $("#current-humidity").text("Humidity: " + data.current.humidity + "%");
+                        $("#current-uv").text("UV Index: " + data.current.uvi);
                     });
                 });
         })
@@ -25,5 +28,6 @@ $("#form-submit").click(function(event) {
     event.preventDefault();
     var userSearch = $("#user-input").val();
     $("#user-input").val("");
-    getWeather(userSearch);
+    // getWeather("userSearch");
+    getWeather("Salt Lake City");
 });
